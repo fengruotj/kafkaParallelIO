@@ -18,7 +18,7 @@ public class TestTransfer {
 
     @Test
     public void testTransferToClient() throws IOException {
-        FileChannel inChannel = FileChannel.open(Paths.get("d:/CHANGES.txt"), StandardOpenOption.READ);
+        FileChannel inChannel = FileChannel.open(Paths.get("D:\\tmp\\kafka-core-logs\\controller.log"), StandardOpenOption.READ);
         SocketChannel sChannel = SocketChannel.open(new InetSocketAddress("localhost", 9898));
         inChannel.transferTo(0,1024*1024,sChannel);
         sChannel.shutdownOutput();
