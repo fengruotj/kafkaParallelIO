@@ -22,13 +22,12 @@ public class KafkaClient {
     private static Logger logger= LoggerFactory.getLogger(KafkaClient.class);
 
     public static void main(String[] args) throws IOException, InterruptedException {
-        long startTimeMills = System.currentTimeMillis();
-
         for(int i=0;i<Constants.transferThreadNum;i++){
             SocketChannel sChannel = SocketChannel.open(new InetSocketAddress(Constants.hostname, 9898));
             ReceiverTask receiverTask=new ReceiverTask(sChannel);
             executorService.submit(receiverTask);
         }
+        long startTimeMills = System.currentTimeMillis();
 
         executorService.shutdown();
         executorService.awaitTermination(10000000, TimeUnit.SECONDS);

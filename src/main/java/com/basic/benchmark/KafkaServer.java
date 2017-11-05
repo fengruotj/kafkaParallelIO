@@ -23,7 +23,6 @@ public class KafkaServer {
     private static ExecutorService executorService = Executors.newFixedThreadPool(Constants.transferThreadNum);
 
     public static void main(String[] args) throws IOException, InterruptedException {
-        long startTimeMills = System.currentTimeMillis();
         ServerSocketChannel ssChannel = ServerSocketChannel.open();
         ssChannel.bind(new InetSocketAddress(9898));
 
@@ -32,6 +31,7 @@ public class KafkaServer {
             FileTransferToTask fileTransferToTask=new FileTransferToTask(sChannel);
             executorService.submit(fileTransferToTask);
         }
+        long startTimeMills = System.currentTimeMillis();
 
         executorService.shutdown();
         executorService.awaitTermination(10000000, TimeUnit.SECONDS);

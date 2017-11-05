@@ -21,12 +21,13 @@ public class KafkaSingelServer {
     private static Logger logger= LoggerFactory.getLogger(KafkaSingelServer.class);
 
     public static void main(String[] args) throws IOException {
-        long startTimeMills = System.currentTimeMillis();
         ServerSocketChannel ssChannel = ServerSocketChannel.open();
         ssChannel.bind(new InetSocketAddress(9898));
 
         FileChannel inChannel = null;
         SocketChannel socketChannel = ssChannel.accept();
+
+        long startTimeMills = System.currentTimeMillis();
         try {
             inChannel = FileChannel.open(Paths.get(Constants.filePath), StandardOpenOption.READ);
             long position=0;
