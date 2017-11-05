@@ -27,13 +27,15 @@ public class FileTransferToTask implements Runnable {
         FileChannel inChannel = null;
         try {
             inChannel = FileChannel.open(Paths.get(Constants.filePath), StandardOpenOption.READ);
-            int position=0;
-            int length=0;
+            long position=0;
+            long length=0;
             while (true){
-                long n=inChannel.transferTo(position,Constants.transferBufferSize,socketChannel);
+                long remainCount=inChannel.size()-position;
+                long count=Constants.transferBufferSize<remainCount?Constants.transferBufferSize:remainCount;
+                long n=inChannel.transferTo(position,count,socketChannel);
                 length+=n;
                 position+=Constants.transferThreadNum*Constants.transferBufferSize;
-                if(n<=0)
+                if(n<=0||position>=inChannel.size())
                     break;
             }
             socketChannel.shutdownOutput();

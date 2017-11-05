@@ -15,6 +15,8 @@ import java.util.concurrent.TimeUnit;
 /**
  * locate com.basic.benchmark
  * Created by 79875 on 2017/11/4.
+ * 并行发送TransferTo KafkaServer
+ * java -cp nioAction-1.0-SNAPSHOT.jar com.basic.benchmark.KafkaServer
  */
 public class KafkaServer {
     private static Logger logger= LoggerFactory.getLogger(FileTransferToTask.class);
