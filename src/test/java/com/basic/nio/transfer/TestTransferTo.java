@@ -1,5 +1,6 @@
 package com.basic.nio.transfer;
 
+import com.basic.core.DirectMemoryChannel;
 import org.junit.Test;
 
 import java.io.IOException;
@@ -14,7 +15,18 @@ import java.util.Iterator;
  * locate com.basic.nio.transfer
  * Created by 79875 on 2017/9/24.
  */
-public class TestTransfer {
+public class TestTransferTo {
+
+    @Test
+    public void testTransferTo() throws IOException {
+        final FileChannel inChannel = FileChannel.open(Paths.get("D:\\tmp\\kafka-core-logs\\controller.log"), StandardOpenOption.READ);
+        DirectMemoryChannel directMemoryChannel =new DirectMemoryChannel();
+        directMemoryChannel.open((int) inChannel.size());
+        long count = inChannel.transferTo(0, 1024 * 1024, directMemoryChannel);
+        System.out.println(count);
+        ByteBuffer byteBuffer = directMemoryChannel.getByteBuffer();
+        //System.out.println(new String(byteBuffer.array(),0,byteBuffer.limit()));
+    }
 
     @Test
     public void testTransferToClient() throws IOException {
