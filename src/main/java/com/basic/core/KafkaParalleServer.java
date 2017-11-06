@@ -52,7 +52,7 @@ public class KafkaParalleServer {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        ParalleTransferToPool.getExecutorService().shutdown();
+        paralleTransferToPool.getExecutorService().shutdown();
         long endTimeMills = System.currentTimeMillis();
         logger.info("delayTime: "+(endTimeMills-startTimeMills));
     }

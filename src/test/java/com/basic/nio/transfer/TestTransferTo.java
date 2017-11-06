@@ -1,6 +1,6 @@
 package com.basic.nio.transfer;
 
-import com.basic.core.model.DirectMemoryChannel;
+import com.basic.core.channel.DirectMemoryChannel;
 import org.junit.Test;
 
 import java.io.IOException;

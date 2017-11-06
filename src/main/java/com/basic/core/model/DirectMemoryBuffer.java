@@ -1,5 +1,7 @@
 package com.basic.core.model;
 
+import com.basic.core.channel.DirectMemoryChannel;
+
 import java.util.concurrent.CountDownLatch;
 
 /**
@@ -41,5 +43,13 @@ public class DirectMemoryBuffer {
 
     public void setDirectMemoryChannel(DirectMemoryChannel directMemoryChannel) {
         this.directMemoryChannel = directMemoryChannel;
+    }
+
+    public int getIndex() {
+        return index;
+    }
+
+    public void setIndex(int index) {
+        this.index = index;
     }
 }
