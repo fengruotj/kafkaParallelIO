@@ -1,6 +1,7 @@
 package com.basic.benchmark;
 
 import com.basic.benchmark.task.ReceiverTask;
+import com.basic.util.BenchmarkConstants;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -18,12 +19,12 @@ import java.util.concurrent.TimeUnit;
  * java -cp nioAction-1.0-SNAPSHOT.jar com.basic.benchmark.KafkaClient
  */
 public class KafkaClient {
-    private static ExecutorService executorService = Executors.newFixedThreadPool(Constants.transferThreadNum);
+    private static ExecutorService executorService = Executors.newFixedThreadPool(BenchmarkConstants.transferThreadNum);
     private static Logger logger= LoggerFactory.getLogger(KafkaClient.class);
 
     public static void main(String[] args) throws IOException, InterruptedException {
-        for(int i=0;i<Constants.transferThreadNum;i++){
-            SocketChannel sChannel = SocketChannel.open(new InetSocketAddress(Constants.hostname, 9898));
+        for(int i = 0; i< BenchmarkConstants.transferThreadNum; i++){
+            SocketChannel sChannel = SocketChannel.open(new InetSocketAddress(BenchmarkConstants.hostname, 9898));
             ReceiverTask receiverTask=new ReceiverTask(sChannel);
             executorService.submit(receiverTask);
         }

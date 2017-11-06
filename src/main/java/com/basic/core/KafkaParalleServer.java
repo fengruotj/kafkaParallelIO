@@ -1,6 +1,7 @@
 package com.basic.core;
 
-import com.basic.benchmark.Constants;
+import com.basic.core.model.ParalleTransferToPool;
+import com.basic.util.BenchmarkConstants;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -21,26 +22,28 @@ import java.nio.file.StandardOpenOption;
 public class KafkaParalleServer {
     private static Logger logger= LoggerFactory.getLogger(KafkaParalleServer.class);
 
-    //TODO 需要实现一个DirectMemoryChannel 缓冲池
     public static void main(String[] args) throws IOException {
+        ParalleTransferToPool paralleTransferToPool =new ParalleTransferToPool(10);
+        paralleTransferToPool.open();
+
         ServerSocketChannel ssChannel = ServerSocketChannel.open();
         ssChannel.bind(new InetSocketAddress(9898));
 
-        FileChannel inChannel = null;
+        FileChannel fileChannel = null;
         SocketChannel socketChannel = ssChannel.accept();
 
         long startTimeMills = System.currentTimeMillis();
         try {
-            inChannel = FileChannel.open(Paths.get(Constants.filePath), StandardOpenOption.READ);
+            fileChannel = FileChannel.open(Paths.get(BenchmarkConstants.filePath), StandardOpenOption.READ);
             long position=0;
             long length=0;
             while (true){
-                long remainCount=inChannel.size()-position;
-                long count=Constants.singelTransferBufferSize<remainCount?Constants.singelTransferBufferSize:remainCount;
-                long n=inChannel.transferTo(position,count,socketChannel);
+                long remainCount=fileChannel.size()-position;
+                long count= BenchmarkConstants.paralleTransferBufferSize<remainCount? BenchmarkConstants.paralleTransferBufferSize:remainCount;
+                long n= paralleTransferToPool.paralleTransferToSocket(position,count,fileChannel,socketChannel);
                 length+=n;
-                position+=Constants.singelTransferBufferSize;
-                if(n<=0||position>=inChannel.size())
+                position+= BenchmarkConstants.paralleTransferBufferSize;
+                if(n<=0||position>=fileChannel.size())
                     break;
             }
             socketChannel.shutdownOutput();
@@ -49,7 +52,7 @@ public class KafkaParalleServer {
         } catch (Exception e) {
             e.printStackTrace();
         }
-
+        ParalleTransferToPool.getExecutorService().shutdown();
         long endTimeMills = System.currentTimeMillis();
         logger.info("delayTime: "+(endTimeMills-startTimeMills));
     }

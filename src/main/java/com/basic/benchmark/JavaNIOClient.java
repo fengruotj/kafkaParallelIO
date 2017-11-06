@@ -1,5 +1,6 @@
 package com.basic.benchmark;
 
+import com.basic.util.BenchmarkConstants;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -18,7 +19,7 @@ public class JavaNIOClient {
     private static Logger logger= LoggerFactory.getLogger(JavaNIOClient.class);
 
     public static void main(String[] args) throws IOException {
-        SocketChannel sChannel = SocketChannel.open(new InetSocketAddress(Constants.hostname, 9898));
+        SocketChannel sChannel = SocketChannel.open(new InetSocketAddress(BenchmarkConstants.hostname, 9898));
 
         long startTimeMills = System.currentTimeMillis();
         ByteBuffer buf = ByteBuffer.allocate(1024*1024);

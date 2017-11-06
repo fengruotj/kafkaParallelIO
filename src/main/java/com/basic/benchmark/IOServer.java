@@ -1,5 +1,6 @@
 package com.basic.benchmark;
 
+import com.basic.util.BenchmarkConstants;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -21,7 +22,7 @@ public class IOServer {
 
     public static void main(String[] args) throws IOException {
         ServerSocket serverSocket=new ServerSocket(8898);
-        FileInputStream inputStream=new FileInputStream(new File(Constants.filePath));
+        FileInputStream inputStream=new FileInputStream(new File(BenchmarkConstants.filePath));
 
         Socket socket = serverSocket.accept();
         OutputStream socketOutputStream = socket.getOutputStream();

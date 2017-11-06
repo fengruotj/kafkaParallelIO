@@ -1,5 +1,6 @@
 package com.basic.benchmark;
 
+import com.basic.util.BenchmarkConstants;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -23,7 +24,7 @@ public class JavaNIOServer {
 
     public static void main(String[] args) throws IOException {
         ServerSocketChannel ssChannel = ServerSocketChannel.open();
-        FileChannel outChannel = FileChannel.open(Paths.get(Constants.filePath), StandardOpenOption.READ, StandardOpenOption.CREATE);
+        FileChannel outChannel = FileChannel.open(Paths.get(BenchmarkConstants.filePath), StandardOpenOption.READ, StandardOpenOption.CREATE);
         ssChannel.bind(new InetSocketAddress(9898));
 
         SocketChannel socketChannel = ssChannel.accept();

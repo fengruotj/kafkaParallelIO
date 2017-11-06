@@ -1,5 +1,6 @@
 package com.basic.benchmark;
 
+import com.basic.util.BenchmarkConstants;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -19,7 +20,7 @@ public class KafkaSingelClient {
 
     public static void main(String[] args) throws IOException {
         long startTimeMills = System.currentTimeMillis();
-        SocketChannel socketChannel = SocketChannel.open(new InetSocketAddress(Constants.hostname, 9898));
+        SocketChannel socketChannel = SocketChannel.open(new InetSocketAddress(BenchmarkConstants.hostname, 9898));
 
         ByteBuffer buf = ByteBuffer.allocate(1024*1024*10);
         long length=0;

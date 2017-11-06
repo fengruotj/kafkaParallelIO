@@ -1,4 +1,4 @@
-package com.basic.core;
+package com.basic.core.model;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -42,13 +42,13 @@ public class DirectMemoryChannel implements WritableByteChannel {
 
     @Override
     public boolean isOpen() {
-        logger.info("isOpen()");
+        logger.debug("isOpen()");
         return isOpen;
     }
 
     @Override
     public void close() throws IOException {
-        logger.info("close()");
+        logger.debug("close()");
     }
 
     public ByteBuffer getByteBuffer() {

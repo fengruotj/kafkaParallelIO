@@ -1,5 +1,6 @@
 package com.basic.benchmark;
 
+import com.basic.util.BenchmarkConstants;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -29,15 +30,15 @@ public class KafkaSingelServer {
 
         long startTimeMills = System.currentTimeMillis();
         try {
-            inChannel = FileChannel.open(Paths.get(Constants.filePath), StandardOpenOption.READ);
+            inChannel = FileChannel.open(Paths.get(BenchmarkConstants.filePath), StandardOpenOption.READ);
             long position=0;
             long length=0;
             while (true){
                 long remainCount=inChannel.size()-position;
-                long count=Constants.singelTransferBufferSize<remainCount?Constants.singelTransferBufferSize:remainCount;
+                long count= BenchmarkConstants.singelTransferBufferSize<remainCount? BenchmarkConstants.singelTransferBufferSize:remainCount;
                 long n=inChannel.transferTo(position,count,socketChannel);
                 length+=n;
-                position+=Constants.singelTransferBufferSize;
+                position+= BenchmarkConstants.singelTransferBufferSize;
                 if(n<=0||position>=inChannel.size())
                     break;
             }

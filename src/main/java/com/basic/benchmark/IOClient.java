@@ -1,5 +1,6 @@
 package com.basic.benchmark;
 
+import com.basic.util.BenchmarkConstants;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -17,7 +18,7 @@ public class IOClient {
     private static Logger logger= LoggerFactory.getLogger(IOClient.class);
 
     public static void main(String[] args) throws IOException {
-        Socket socket=new Socket(Constants.hostname,8898);
+        Socket socket=new Socket(BenchmarkConstants.hostname,8898);
 
         InputStream socketInputStream = socket.getInputStream();
 

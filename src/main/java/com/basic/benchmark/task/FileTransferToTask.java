@@ -1,6 +1,6 @@
 package com.basic.benchmark.task;
 
-import com.basic.benchmark.Constants;
+import com.basic.util.BenchmarkConstants;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -26,15 +26,15 @@ public class FileTransferToTask implements Runnable {
     public void run() {
         FileChannel inChannel = null;
         try {
-            inChannel = FileChannel.open(Paths.get(Constants.filePath), StandardOpenOption.READ);
+            inChannel = FileChannel.open(Paths.get(BenchmarkConstants.filePath), StandardOpenOption.READ);
             long position=0;
             long length=0;
             while (true){
                 long remainCount=inChannel.size()-position;
-                long count=Constants.transferBufferSize<remainCount?Constants.transferBufferSize:remainCount;
+                long count= BenchmarkConstants.transferBufferSize<remainCount? BenchmarkConstants.transferBufferSize:remainCount;
                 long n=inChannel.transferTo(position,count,socketChannel);
                 length+=n;
-                position+=Constants.transferThreadNum*Constants.transferBufferSize;
+                position+= BenchmarkConstants.transferThreadNum* BenchmarkConstants.transferBufferSize;
                 if(n<=0||position>=inChannel.size())
                     break;
             }

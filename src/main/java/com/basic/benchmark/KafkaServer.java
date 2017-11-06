@@ -1,6 +1,7 @@
 package com.basic.benchmark;
 
 import com.basic.benchmark.task.FileTransferToTask;
+import com.basic.util.BenchmarkConstants;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -20,13 +21,13 @@ import java.util.concurrent.TimeUnit;
  */
 public class KafkaServer {
     private static Logger logger= LoggerFactory.getLogger(FileTransferToTask.class);
-    private static ExecutorService executorService = Executors.newFixedThreadPool(Constants.transferThreadNum);
+    private static ExecutorService executorService = Executors.newFixedThreadPool(BenchmarkConstants.transferThreadNum);
 
     public static void main(String[] args) throws IOException, InterruptedException {
         ServerSocketChannel ssChannel = ServerSocketChannel.open();
         ssChannel.bind(new InetSocketAddress(9898));
 
-        for(int i=0;i<Constants.transferThreadNum;i++){
+        for(int i = 0; i< BenchmarkConstants.transferThreadNum; i++){
             SocketChannel sChannel = ssChannel.accept();
             FileTransferToTask fileTransferToTask=new FileTransferToTask(sChannel);
             executorService.submit(fileTransferToTask);
