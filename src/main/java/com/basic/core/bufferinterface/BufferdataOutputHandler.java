@@ -9,5 +9,5 @@ import java.util.EventListener;
  * 编程人员自定义如何读取这样一个有序的顺序byteBuffer数据块
  */
 public interface BufferdataOutputHandler extends EventListener {
-    public void BufferdataOutput(DirectMemoryChannel directMemoryChannel, int bufferindex);
+    public int BufferdataOutput(DirectMemoryChannel directMemoryChannel, int bufferindex);
 }

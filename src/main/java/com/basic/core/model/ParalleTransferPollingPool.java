@@ -19,6 +19,8 @@ import java.util.concurrent.Executors;
 /**
  * locate com.basic.core.model
  * Created by 79875 on 2017/11/6.
+ * 多线程并行发送TransferTo到DirectMemoryChannel[],然后DirectMemoryChannel排序好后按顺序发送到SocketChannel KafkaParalleServer
+ * 并且每当一个缓冲区缓冲完成后，线程开始缓冲下一个缓冲区
  */
 public class ParalleTransferPollingPool {
     private static Logger logger= LoggerFactory.getLogger(ParalleTransferPollingPool.class);
@@ -146,7 +148,7 @@ public class ParalleTransferPollingPool {
         setInstance(NUM,count);
         FileTransferToPollingMemoryTask task=new FileTransferToPollingMemoryTask(position,count,fileChannel,directMemoryBuffers[NUM]);
         executorService.submit(task);
-        logger.info("addFileTransferToMemoryTask index: "+NUM);
+        logger.debug("addFileTransferToMemoryTask index: "+NUM);
     }
 
     public class DirectMemoryPoolControlTask implements Runnable{
@@ -195,6 +197,7 @@ public class ParalleTransferPollingPool {
      */
     public void directMemoryDataOutputOrder(BufferdataOutputHandler bufferdataOutputHandler){
         int blockPosition=0;
+        long length=0L;
         while (true){
             //if(hdfsCachePool.isIsbufferfinish()){
             //可以开始读取HdfsCachePool
@@ -211,7 +214,7 @@ public class ParalleTransferPollingPool {
                 DirectMemoryChannel directMemoryChannel = directMemoryBuffers[i].directMemoryChannel;
                 logger.debug("---------start--------"+ directMemoryChannel.getByteBuffer() +" num:"+i+" blockPosition: "+blockPosition);
 
-                bufferdataOutputHandler.BufferdataOutput(directMemoryChannel,i);
+                length +=bufferdataOutputHandler.BufferdataOutput(directMemoryChannel, i);
 
                 directMemoryBuffers[i].setBufferOutFinished(true);
                 directMemoryBuffers[i].setBufferFinished(false);
@@ -219,6 +222,7 @@ public class ParalleTransferPollingPool {
             }
             if(blockPosition>=inputSplits.size()){
                 logger.info("----------------dataOuput over--------------");
+                logger.info("SendTask size: "+length);
                 break;
             }
         }

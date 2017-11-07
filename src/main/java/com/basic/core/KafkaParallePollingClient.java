@@ -13,6 +13,7 @@ import java.nio.channels.SocketChannel;
  * locate com.basic.core
  * Created by 79875 on 2017/11/7.
  * 多线程并行发送TransferTo到DirectMemoryChannel[],然后DirectMemoryChannel排序好后按顺序发送到SocketChannel KafkaParalleClient
+ * 并且每当一个缓冲区缓冲完成后，线程开始缓冲下一个缓冲区
  * java -cp nioAction-1.0-SNAPSHOT.jar com.basic.core.KafkaParalleClient
  */
 public class KafkaParallePollingClient {

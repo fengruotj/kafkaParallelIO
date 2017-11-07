@@ -36,7 +36,7 @@ public class FileTransferToPollingMemoryTask implements Runnable {
         } catch (IOException e) {
             e.printStackTrace();
         }finally {
-            logger.info("FileTransferToMemoryTask success "+" size: "+size+" inputSplit: "+directMemoryBuffer.getInputSplitNum());
+            logger.debug("FileTransferToMemoryTask success "+" size: "+size+" inputSplit: "+directMemoryBuffer.getInputSplitNum());
         }
         directMemoryBuffer.setBufferFinished(true);
     }
