@@ -29,7 +29,7 @@ public class KafkaServer {
 
         for(int i = 0; i< BenchmarkConstants.transferThreadNum; i++){
             SocketChannel sChannel = ssChannel.accept();
-            FileTransferToTask fileTransferToTask=new FileTransferToTask(sChannel);
+            FileTransferToTask fileTransferToTask=new FileTransferToTask(sChannel,i);
             executorService.submit(fileTransferToTask);
         }
         long startTimeMills = System.currentTimeMillis();

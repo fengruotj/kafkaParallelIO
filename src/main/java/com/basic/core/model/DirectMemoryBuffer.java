@@ -2,8 +2,6 @@ package com.basic.core.model;
 
 import com.basic.core.channel.DirectMemoryChannel;
 
-import java.util.concurrent.CountDownLatch;
-
 /**
  * locate com.basic.core.model
  * Created by 79875 on 2017/11/6.
@@ -11,29 +9,29 @@ import java.util.concurrent.CountDownLatch;
 public class DirectMemoryBuffer {
     DirectMemoryChannel directMemoryChannel;
 
-    private CountDownLatch bufferFinished=new CountDownLatch(1);//directMemory是否缓冲完成
-    private CountDownLatch bufferOutFinished=new CountDownLatch(1);//directMemory是否缓冲输出完成
+    private boolean bufferFinished=false;//directMemory是否缓冲完成
+    private boolean bufferOutFinished=true;//directMemory是否缓冲输出完成
 
-    private int index;  //当前Buffer缓冲的是哪一块
+    private int inputSplitNum;//当前Buffer缓冲的是哪一块
 
-    public DirectMemoryBuffer(DirectMemoryChannel directMemoryChannel, int index) {
+    public DirectMemoryBuffer(DirectMemoryChannel directMemoryChannel, int inputSplitNum) {
         this.directMemoryChannel = directMemoryChannel;
-        this.index = index;
+        this.inputSplitNum = inputSplitNum;
     }
 
-    public CountDownLatch getBufferFinished() {
+    public boolean isBufferFinished() {
         return bufferFinished;
     }
 
-    public void setBufferFinished(CountDownLatch bufferFinished) {
+    public void setBufferFinished(boolean bufferFinished) {
         this.bufferFinished = bufferFinished;
     }
 
-    public CountDownLatch getBufferOutFinished() {
+    public boolean isBufferOutFinished() {
         return bufferOutFinished;
     }
 
-    public void setBufferOutFinished(CountDownLatch bufferOutFinished) {
+    public void setBufferOutFinished(boolean bufferOutFinished) {
         this.bufferOutFinished = bufferOutFinished;
     }
 
@@ -45,11 +43,11 @@ public class DirectMemoryBuffer {
         this.directMemoryChannel = directMemoryChannel;
     }
 
-    public int getIndex() {
-        return index;
+    public int getInputSplitNum() {
+        return inputSplitNum;
     }
 
-    public void setIndex(int index) {
-        this.index = index;
+    public void setInputSplitNum(int inputSplitNum) {
+        this.inputSplitNum = inputSplitNum;
     }
 }

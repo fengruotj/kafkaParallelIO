@@ -18,8 +18,11 @@ public class FileTransferToTask implements Runnable {
     private SocketChannel socketChannel;
     private static Logger logger= LoggerFactory.getLogger(FileTransferToTask.class);
 
-    public FileTransferToTask(SocketChannel socketChannel) {
+    private int taskIndex=0;
+
+    public FileTransferToTask(SocketChannel socketChannel,int taskIndex) {
         this.socketChannel = socketChannel;
+        this.taskIndex=taskIndex;
     }
 
     @Override
@@ -27,7 +30,7 @@ public class FileTransferToTask implements Runnable {
         FileChannel inChannel = null;
         try {
             inChannel = FileChannel.open(Paths.get(BenchmarkConstants.filePath), StandardOpenOption.READ);
-            long position=0;
+            long position=taskIndex*BenchmarkConstants.transferBufferSize;
             long length=0;
             while (true){
                 long remainCount=inChannel.size()-position;

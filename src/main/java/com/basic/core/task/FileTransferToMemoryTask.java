@@ -6,6 +6,7 @@ import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.nio.channels.FileChannel;
+import java.util.concurrent.CountDownLatch;
 
 /**
  * locate com.basic.core.task
@@ -18,12 +19,14 @@ public class FileTransferToMemoryTask implements Runnable {
     private long count;
     private FileChannel fileChannel;
     private DirectMemoryBuffer directMemoryBuffer;
+    private CountDownLatch countDownLatch;
 
-    public FileTransferToMemoryTask(long position, long count, FileChannel fileChannel, DirectMemoryBuffer directMemoryBuffer) {
+    public FileTransferToMemoryTask(long position, long count, FileChannel fileChannel, DirectMemoryBuffer directMemoryBuffer,CountDownLatch countDownLatch) {
         this.position = position;
         this.count = count;
         this.fileChannel = fileChannel;
         this.directMemoryBuffer = directMemoryBuffer;
+        this.countDownLatch=countDownLatch;
     }
 
     @Override
@@ -34,8 +37,8 @@ public class FileTransferToMemoryTask implements Runnable {
         } catch (IOException e) {
             e.printStackTrace();
         }finally {
-            logger.info("FileTransferToMemoryTask success "+" size: "+size);
-            directMemoryBuffer.getBufferFinished().countDown();
+            logger.debug("FileTransferToMemoryTask success "+" size: "+size);
+            countDownLatch.countDown();
         }
     }
 }

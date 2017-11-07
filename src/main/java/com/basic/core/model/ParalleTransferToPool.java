@@ -7,6 +7,7 @@ import org.slf4j.LoggerFactory;
 import java.io.IOException;
 import java.nio.channels.FileChannel;
 import java.nio.channels.SocketChannel;
+import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -20,6 +21,7 @@ public class ParalleTransferToPool {
     private int directMemroyBufferNum;
 
     private DirectMemoryBuffer[] directMemoryBuffers;
+    private CountDownLatch countDownLatch;
     private ExecutorService executorService = Executors.newCachedThreadPool();
 
     public ParalleTransferToPool(int directMemroyBufferNum) {
@@ -43,6 +45,8 @@ public class ParalleTransferToPool {
      * @throws Exception
      */
     public long paralleTransferToSocket(long position,long count,FileChannel fileChannel,SocketChannel socketChannel) throws Exception {
+        countDownLatch=new CountDownLatch(directMemroyBufferNum);
+
         long n = 0;
         long start=position;
         long bufferSize = count / directMemroyBufferNum;
@@ -51,10 +55,7 @@ public class ParalleTransferToPool {
             start+=bufferSize;
         }
 
-        for(int i=0;i<directMemroyBufferNum;i++){
-            directMemoryBuffers[i].getBufferFinished().await();
-        }
-
+        countDownLatch.await();
         n = outPutToSocketChannel(socketChannel);
         return n;
     }
@@ -67,13 +68,13 @@ public class ParalleTransferToPool {
      * @param fileChannel
      * @throws IOException
      */
-    public void addFileTransferToMemoryTask(int index, long position,long count,FileChannel fileChannel) throws IOException {
+    private void addFileTransferToMemoryTask(int index, long position,long count,FileChannel fileChannel) throws IOException {
         DirectMemoryChannel directMemoryChannel=new DirectMemoryChannel();
         directMemoryChannel.open((int) count);
         directMemoryBuffers[index]=new DirectMemoryBuffer(directMemoryChannel,index);
-        FileTransferToMemoryTask task=new FileTransferToMemoryTask(position,count,fileChannel,directMemoryBuffers[index]);
+        FileTransferToMemoryTask task=new FileTransferToMemoryTask(position,count,fileChannel,directMemoryBuffers[index],countDownLatch);
         executorService.submit(task);
-        logger.info("addFileTransferToMemoryTask index: "+index);
+        logger.debug("addFileTransferToMemoryTask index: "+index);
     }
 
     /**
