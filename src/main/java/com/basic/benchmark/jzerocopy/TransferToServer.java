@@ -18,15 +18,15 @@ public class TransferToServer  {
     InetSocketAddress listenAddr =  new InetSocketAddress(9026);
 
     try {
-      listener = ServerSocketChannel.open();
-      ServerSocket ss = listener.socket();
-      ss.setReuseAddress(true);
-      ss.bind(listenAddr);
-      System.out.println("Listening on port : "+ listenAddr.toString());
+        listener = ServerSocketChannel.open();
+        ServerSocket ss = listener.socket();
+        ss.setReuseAddress(true);
+        ss.bind(listenAddr);
+        System.out.println("Listening on port : "+ listenAddr.toString());
     } catch (IOException e) {
-      System.out.println("Failed to bind, is port : "+ listenAddr.toString()
+        System.out.println("Failed to bind, is port : "+ listenAddr.toString()
           + " already in use ? Error Msg : "+e.getMessage());
-      e.printStackTrace();
+        e.printStackTrace();
     }
 
   }

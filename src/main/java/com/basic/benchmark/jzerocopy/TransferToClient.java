@@ -25,7 +25,8 @@ public class TransferToClient {
 	    sc.connect(sad);
 	    sc.configureBlocking(true);
 
-	    String fname = "sendfile/NetworkInterfaces.c";
+		String fname = "/root/wang/projects/hiberfil3";
+//		String fname = "sendfile/NetworkInterfaces.c";
 	    long fsize = 183678375L, sendzise = 4094;
 	    
 	    // FileProposerExample.stuffFile(fname, fsize);

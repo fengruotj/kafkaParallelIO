@@ -41,7 +41,8 @@ public class TraditionalClient {
 	}
 	
 	try {
-		String fname = "sendfile/NetworkInterfaces.c";
+//		String fname = "sendfile/NetworkInterfaces.c";
+		String fname = "/root/wang/projects/hiberfil3";
 		inputStream = new FileInputStream(fname);
 		
 	    output = new DataOutputStream(socket.getOutputStream());
