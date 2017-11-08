@@ -9,7 +9,7 @@ import java.nio.channels.SocketChannel;
 
 /**
  * TransferToServer
- * java -cp nioAction-1.0-SNAPSHOT.jar com.basic.benchmark.TransferToServer
+ * java -cp nioAction-1.0-SNAPSHOT.jar com.basic.benchmark.jzerocopy.TransferToServer
  */
 public class TransferToServer  {
   ServerSocketChannel listener = null;

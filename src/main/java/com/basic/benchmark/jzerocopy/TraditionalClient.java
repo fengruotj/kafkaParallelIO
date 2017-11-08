@@ -8,7 +8,7 @@ import java.net.UnknownHostException;
 
 /**
  * TraditionalClient
- * java -cp nioAction-1.0-SNAPSHOT.jar com.basic.benchmark.TraditionalClient
+ * java -cp nioAction-1.0-SNAPSHOT.jar com.basic.benchmark.jzerocopy.TraditionalClient
  */
 public class TraditionalClient {
 

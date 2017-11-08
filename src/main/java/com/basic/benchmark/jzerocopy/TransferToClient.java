@@ -9,7 +9,7 @@ import java.nio.channels.SocketChannel;
 
 /**
  * TransferToClient
- * java -cp nioAction-1.0-SNAPSHOT.jar com.basic.benchmark.TransferToClient
+ * java -cp nioAction-1.0-SNAPSHOT.jar com.basic.benchmark.jzerocopy.TransferToClient
  */
 public class TransferToClient {
 	

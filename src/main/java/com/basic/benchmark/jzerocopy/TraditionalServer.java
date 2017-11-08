@@ -5,7 +5,7 @@ import java.io.*;
 
 /**
  * TraditionalServer
- * java -cp nioAction-1.0-SNAPSHOT.jar com.basic.benchmark.TraditionalServer
+ * java -cp nioAction-1.0-SNAPSHOT.jar com.basic.benchmark.jzerocopy.TraditionalServer
  */
 public class TraditionalServer {
     
