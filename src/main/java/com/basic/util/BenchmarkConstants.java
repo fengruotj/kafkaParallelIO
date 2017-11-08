@@ -8,10 +8,10 @@ public class BenchmarkConstants {
     static {
         PropertiesUtil.init("/benchmark.properties");
     }
-    public static final int transferBufferSize =Integer.valueOf(PropertiesUtil.getProperties("transferBufferSize"));
+    public static final long transferBufferSize =Long.valueOf(PropertiesUtil.getProperties("transferBufferSize"));
     public static final int transferThreadNum = Integer.valueOf(PropertiesUtil.getProperties("transferThreadNum"));
-    public static final int singelTransferBufferSize =Integer.valueOf(PropertiesUtil.getProperties("singelTransferBufferSize"));
-    public static final int paralleTransferBufferSize =Integer.valueOf(PropertiesUtil.getProperties("paralleTransferBufferSize"));
+    public static final long singelTransferBufferSize =Long.valueOf(PropertiesUtil.getProperties("singelTransferBufferSize"));
+    public static final long paralleTransferBufferSize =Long.valueOf(PropertiesUtil.getProperties("paralleTransferBufferSize"));
     public static final String filePath=PropertiesUtil.getProperties("filePath");
     public static final String hostname=PropertiesUtil.getProperties("hostname");
 }
