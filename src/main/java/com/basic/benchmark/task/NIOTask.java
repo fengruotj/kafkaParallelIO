@@ -16,7 +16,7 @@ import java.nio.file.StandardOpenOption;
 public class NIOTask implements Runnable{
 
     private SocketChannel socketChannel;
-    private static Logger logger= LoggerFactory.getLogger(FileTransferToTask.class);
+    private static Logger logger= LoggerFactory.getLogger(NIOTask.class);
 
     private int taskIndex=0;
 
@@ -30,7 +30,7 @@ public class NIOTask implements Runnable{
         FileChannel inChannel = null;
         try {
             inChannel = FileChannel.open(Paths.get(BenchmarkConstants.filePath), StandardOpenOption.READ);
-            ByteBuffer buffer = ByteBuffer.allocate(1024*1024);
+            ByteBuffer buffer = ByteBuffer.allocate((int)BenchmarkConstants.transferBufferSize);
             long position=taskIndex*BenchmarkConstants.transferBufferSize;
             long length=0;
             while (true){

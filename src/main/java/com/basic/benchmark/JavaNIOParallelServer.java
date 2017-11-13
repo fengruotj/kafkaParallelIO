@@ -1,6 +1,5 @@
 package com.basic.benchmark;
 
-import com.basic.benchmark.task.FileTransferToTask;
 import com.basic.benchmark.task.NIOTask;
 import com.basic.util.BenchmarkConstants;
 import org.slf4j.Logger;
@@ -20,7 +19,7 @@ import java.util.concurrent.TimeUnit;
  * java -cp nioAction-1.0-SNAPSHOT.jar com.basic.benchmark.JavaNIOParallelServer
  */
 public class JavaNIOParallelServer {
-    private static Logger logger= LoggerFactory.getLogger(FileTransferToTask.class);
+    private static Logger logger= LoggerFactory.getLogger(JavaNIOParallelServer.class);
     private static ExecutorService executorService = Executors.newFixedThreadPool(BenchmarkConstants.transferThreadNum);
 
     public static void main(String[] args) throws IOException, InterruptedException {

@@ -19,7 +19,7 @@ import java.util.concurrent.TimeUnit;
 public class JavaNIOParallelClient {
 
     private static ExecutorService executorService = Executors.newFixedThreadPool(BenchmarkConstants.transferThreadNum);
-    private static Logger logger= LoggerFactory.getLogger(KafkaClient.class);
+    private static Logger logger= LoggerFactory.getLogger(JavaNIOParallelClient.class);
 
     public static void main(String[] args) throws IOException, InterruptedException {
         for(int i = 0; i< BenchmarkConstants.transferThreadNum; i++){

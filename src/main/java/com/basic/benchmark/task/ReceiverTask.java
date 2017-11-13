@@ -1,5 +1,6 @@
 package com.basic.benchmark.task;
 
+import com.basic.util.BenchmarkConstants;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -22,7 +23,7 @@ public class ReceiverTask implements Runnable {
 
     @Override
     public void run() {
-        ByteBuffer buf = ByteBuffer.allocate(1024*1024);
+        ByteBuffer buf = ByteBuffer.allocate((int)BenchmarkConstants.transferBufferSize);
         long length=0;
         try {
             while(socketChannel.read(buf) != -1){
