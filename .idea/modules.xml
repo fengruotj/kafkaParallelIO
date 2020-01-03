@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/nioAction.iml" filepath="$PROJECT_DIR$/nioAction.iml" />
+      <module fileurl="file://$PROJECT_DIR$/kafkaParallelIO.iml" filepath="$PROJECT_DIR$/kafkaParallelIO.iml" />
     </modules>
   </component>
 </project>
